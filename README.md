@@ -14,12 +14,13 @@
 
 
 ## Introduction
-Jointly processing information from multiple sensors is crucial to achieving accurate and robust perception for reliable autonomous driving systems. However, current 3D perception research follows a modality-specific paradigm, leading to additional computation overheads and inefficient collaboration between different sensor data. 
+
 <div align="center">
   <img src="assets/Figure2.png" width="500"/>
 </div>
 
-In this paper, we present an efficient multi-modal backbone for outdoor 3D perception, which processes a variety of modalities with unified modeling and shared parameters. It is a fundamentally task-agnostic backbone that naturally supports different 3D perception tasks. It sets a new state-of-the-art performance on the nuScenes benchmark, achieving `+1.1 NDS` higher for 3D object detection and `+12.0 mIoU` higher for BEV map segmentation with lower inference latency.
+In this paper, we xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 <div align="center">
   <img src="assets/Figure3.png" width="800"/>
 </div>
@@ -40,7 +41,7 @@ In this paper, we present an efficient multi-modal backbone for outdoor 3D perce
 
 ### What's new here?
 #### 🔥 Beats previous SOTAs of outdoor multi-modal 3D Object Detection and BEV Segmentation
-Our approach has achieved the best performance on multiple tasks (e.g., 3D Object Detection and BEV Map Segmentation), and it is highly versatile, requiring only the replacement of the backbone.
+
 ##### 3D Object Detection
 <div align="left">
   <img src="assets/Figure4.png" width="700"/>
@@ -277,6 +278,13 @@ python setup.py develop
 
 * Please download the official [NuScenes 3D object detection dataset](https://www.nuscenes.org/download) and organize the downloaded files as follows: 
 
+Tips:here is the method to download the nuscenes dataset quickly without know much about nuscenes
+```shell
+cd Pillar_fusion
+# the python script in the page can help you download
+python download_nuscenes.py
+
+```
 ```
 OpenPCDet
 ├── data
