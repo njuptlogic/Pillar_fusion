@@ -13,14 +13,6 @@
 
 
 
-
-## TODO
-
-- [x] Release the [arXiv](http://arxiv.org/abs/2308.07732) version.
-- [x] SOTA performance of multi-modal 3D object detection (Nuscenes) and BEV Map Segmentation (Nuscenes).
-- [x] Clean up and release the code of NuScenes.
-- [ ] Merge UniTR to [OpenPCDet](https://github.com/open-mmlab/OpenPCDet).
-
 ## Introduction
 Jointly processing information from multiple sensors is crucial to achieving accurate and robust perception for reliable autonomous driving systems. However, current 3D perception research follows a modality-specific paradigm, leading to additional computation overheads and inefficient collaboration between different sensor data. 
 <div align="center">
@@ -36,21 +28,15 @@ In this paper, we present an efficient multi-modal backbone for outdoor 3D perce
 ### 3D Object Detection (on NuScenes validation)
 |  Model  | NDS | mAP |mATE | mASE | mAOE | mAVE| mAAE | ckpt | Log |
 |---------|---------|--------|---------|---------|--------|---------|--------|--------|--------|
-|  [UniTR](https://github.com/Haiyang-W/UniTR/blob/main/tools/cfgs/nuscenes_models/unitr.yaml) | 73.0 | 70.1 | 26.3 | 24.7 | 26.8 | 24.6 | 17.9 | [ckpt](https://drive.google.com/file/d/10_1QCJ2uJqQ5XBSX6SQ2EVxFFais38fK/view?usp=sharing)| [Log](https://drive.google.com/file/d/1TfPRr4bItJxgScjdxMme4-C5Lb0Mjies/view?usp=sharing)|
-|  [UniTR+LSS](https://github.com/Haiyang-W/UniTR/blob/main/tools/cfgs/nuscenes_models/unitr%2Blss.yaml) | 73.3 | 70.5 | 26.0 | 24.4 | 26.8 | 24.8 | 18.7 | [ckpt](https://drive.google.com/file/d/1D-_RRN2P9MnI2u8DWRNt7I2-58gohRQ_/view?usp=sharing)| [Log](https://drive.google.com/file/d/1mWDXF22YmeQnHvrmLTehRJGrXySvl0NK/view?usp=sharing)|
 
 
-### 3D Object Detection (on NuScenes test)
-|  Model  | NDS | mAP | mATE | mASE | mAOE | mAVE| mAAE |
-|---------|---------|--------|--------|---------|---------|--------|---------|
-|  UniTR | 74.1 | 70.5 | 24.4 | 23.3 | 25.7 | 24.1 | 13.0 |
-|  UniTR+LSS | 74.5 | 70.9 | 24.1 | 22.9 | 25.6 | 24.0 | 13.1 |
+
+
 
 ### Bev Map Segmentation (on NuScenes validation)
 |  Model  | mIoU | Drivable |Ped.Cross.| Walkway |  StopLine  | Carpark |  Divider  |  ckpt | Log |
 |---------|----------|--------|--------|--------|--------|---------|--------|---------|--------|
-|  [UniTR](https://github.com/Haiyang-W/UniTR/blob/main/tools/cfgs/nuscenes_models/unitr_map.yaml) | 73.2  | 90.4   |   73.1   |   78.2   |   66.6   |   67.3  |   63.8   |  [ckpt](https://drive.google.com/file/d/1x189DFgx04SeoyVDkDoZj-FpMPzgYkcn/view?usp=sharing)| [Log](https://drive.google.com/file/d/1HOtmgS1SqTczwII1F8iieaerwzi3aiez/view?usp=sharing)|
-|  [UniTR+LSS](https://github.com/Haiyang-W/UniTR/blob/main/tools/cfgs/nuscenes_models/unitr_map%2Blss.yaml) |74.7 |   90.7   |   74.0   |   79.3   |   68.2   |   72.9  |   64.2   | [ckpt](https://drive.google.com/file/d/1Jr-dlrWxJEKe0RKaf3iTPr0lYgUEFjBL/view?usp=sharing)| [Log](https://drive.google.com/file/d/1-76K3GRs3QoxcL6Q9nCCokABBkcPICtb/view?usp=sharing)|
+
 
 ### What's new here?
 #### 🔥 Beats previous SOTAs of outdoor multi-modal 3D Object Detection and BEV Segmentation
@@ -75,12 +61,12 @@ A weight-shared unified multimodal encoder is a prerequisite for foundation mode
 ### Installation
 
 ```shell
-conda create -n unitr python=3.8
+conda create -n pillarfuv python=3.8
 # Install torch, we only test it in pytorch 1.10
 pip install torch==1.10.1+cu113 torchvision==0.11.2+cu113 -f https://download.pytorch.org/whl/torch_stable.html
 
-git clone https://github.com/Haiyang-W/UniTR
-cd UniTR
+git clone 
+cd pillarfuv
 
 # Install extra dependency
 pip install -r requirements.txt
@@ -156,7 +142,7 @@ OpenPCDet
 ```
 
 ### Training
-Please download pretrained checkpoint from [unitr_pretrain.pth](https://drive.google.com/u/0/uc?id=1SJQRI4TAKuO2GwqJ4otzMo7qGGjlBQ9u&export=download) and copy the file under the root folder, eg. `UniTR/unitr_pretrain.pth`. This file is the weight of pretraining DSVT on Imagenet and Nuimage datasets.
+
 
 3D object detection:
 
@@ -239,42 +225,4 @@ bash scripts/dist_test.sh 8 --cfg_file ./cfgs/nuscenes_models/unitr+LSS_cache_pl
 #### Performance of cache testing on NuScenes validation (some variations in camera parameters)
 |  Model  | NDS | mAP |mATE | mASE | mAOE | mAVE| mAAE |
 |---------|---------|--------|---------|---------|--------|---------|--------|
-|  [UniTR (Cache Backbone)](https://github.com/Haiyang-W/UniTR/blob/main/tools/cfgs/nuscenes_models/unitr_cache.yaml) | 72.6(-0.4) | 69.4(-0.7) | 26.9 | 24.8 | 26.3 | 24.6 | 18.2 |
-|  [UniTR+LSS (Cache Backbone)](https://github.com/Haiyang-W/UniTR/blob/main/tools/cfgs/nuscenes_models/unitr%2Blss_cache.yaml) | 73.1(-0.2) | 70.2(-0.3) | 25.8 | 24.4 | 26.0 | 25.3 | 18.2 | 
-|  [UniTR+LSS (Cache Backbone and LSS)](https://github.com/Haiyang-W/UniTR/blob/main/tools/cfgs/nuscenes_models/unitr%2Blss_cache_plus.yaml) | 72.6（-0.7） | 69.3（-1.2） | 26.7 | 24.3 | 25.9 | 25.3 | 18.2 | 
 
-## Potential Research
-* **Infrastructure of 3D Vision Foundation Model.**
-  An efficient network design is crucial for large models. With a reliable model structure, the development of large models can be advanced. How to make a general multimodal backbone more efficient and easy to deploy. Honestly, the partition in Unitr is slow and takes about 40% of the total time, but this can be optimized to zero with better `partition strategies` or `some engineering efforts`, indicating that there is still huge room for speed optimization. We're not the HPC experts, but if anyone in the industry wants to improve this, we believe it could be halved. Importantly, this part doesn't scale with model size, making it friendly for larger models. 
-* **Multi-Modal Self-supervised Learning based on Image-Lidar pair and UniTR.**
-  Please refer to the following figure. The images and point clouds both describe the same 3D scene; they complement each other in terms of highly informative correspondence. This allows for the unsupervised learning of more generic scene representation with shared parameters.
-* **Single-Modal Pretraining.** Our model is almost the same as ViT (except for some position embedding strategies). If we adjust the position embedding appropriately, DSVT and UniTR can directly load the pretrained parameters of ViT. This is beneficial for better integration with the 2D community.
-* **Unifide Modeling of 3D Vision.**
-  Please refer to the following figure. 
-<div align="center">
-  <img src="assets/Figure6.png" width="800"/>
-</div>
-
-## Possible Issues
-* If you encounter a gradient that becomes NaN during fp16 training, not support.
-* If you couldn’t find a solution, search open and closed issues in our github issues page [here](https://github.com/Haiyang-W/UniTR/issues).
-* We provide torch checkpoints option [here](https://github.com/Haiyang-W/UniTR/blob/3f75dc1a362fe8f325dabd2e878ac57df2ab7323/tools/cfgs/nuscenes_models/unitr.yaml#L125) in training stage by default for saving CUDA memory 50%.
-* Samples in Nuscenes have some variations in camera parameters. So, during training, every sample recalculates the camera-lidar mapping, which significantly slows down the training speed (~40%). If the extrinsic parameters in your dataset are consistent, I recommend caching this computation during training.
-* If still no-luck, open a new issue in our github. Our turnaround is usually a couple of days.
-
-## Citation
-Please consider citing our work as follows if it is helpful.
-```
-@inproceedings{wang2023unitr,
-    title={UniTR: A Unified and Efficient Multi-Modal Transformer for Bird's-Eye-View Representation},
-    author={Haiyang Wang, Hao Tang, Shaoshuai Shi, Aoxue Li, Zhenguo Li, Bernt Schiele, Liwei Wang},
-    booktitle={ICCV},
-    year={2023}
-}
-```
-
-## Acknowledgments
-UniTR uses code from a few open source repositories. Without the efforts of these folks (and their willingness to release their implementations), UniTR would not be possible. We thanks these authors for their efforts!
-* Shaoshuai Shi: [OpenPCDet](https://github.com/open-mmlab/OpenPCDet)
-* Chen Shi: [DSVT](https://github.com/Haiyang-W/DSVT)
-* Zhijian Liu: [BevFusion](https://github.com/mit-han-lab/bevfusion)
