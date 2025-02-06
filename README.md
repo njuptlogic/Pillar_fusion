@@ -61,12 +61,12 @@ A weight-shared unified multimodal encoder is a prerequisite for foundation mode
 ### Installation
 
 ```shell
-conda create -n pillarfuv python=3.8
+conda create -n pillarfusion python=3.8
 # Install torch, we only test it in pytorch 1.10
 pip install torch==1.10.1+cu113 torchvision==0.11.2+cu113 -f https://download.pytorch.org/whl/torch_stable.html
 
-git clone 
-cd pillarfuv
+git clone https://github.com/njuptlogic/Pillar_fusion.git
+cd pillarfusion
 
 # Install extra dependency
 pip install -r requirements.txt
