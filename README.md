@@ -4,7 +4,7 @@
 
 
 <div align="center">
-  <img src="assets/Figure1.png" width="700"/>
+  <img src="illustrations/1.png" width="700"/>
 </div>
 
 
@@ -16,13 +16,13 @@
 ## Introduction
 
 <div align="center">
-  <img src="assets/Figure2.png" width="500"/>
+  <img src="illustrations/2.png" width="500"/>
 </div>
 
 In this paper, we xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 <div align="center">
-  <img src="assets/Figure3.png" width="800"/>
+  <img src="illustrations/3.png" width="800"/>
 </div>
 
 ## Main results
@@ -44,12 +44,12 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 ##### 3D Object Detection
 <div align="left">
-  <img src="assets/Figure4.png" width="700"/>
+  <img src="illustrations/4.png" width="700"/>
 </div>
 
 ##### BEV Map Segmentation
 <div align="left">
-  <img src="assets/Figure5.png" width="700"/>
+  <img src="illustrations/5.png" width="700"/>
 </div>
 
 #### 🔥 Weight-Sharing among all modalities 
