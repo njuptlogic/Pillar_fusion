@@ -345,7 +345,7 @@ OpenPCDet
 ```
 
 ### Training
-## Please download pretrained checkpoint from [unitr_pretrain.pth](https://drive.google.com/u/0/uc?id=1SJQRI4TAKuO2GwqJ4otzMo7qGGjlBQ9u&export=download) and copy the file under the root folder, eg. `UniTR/unitr_pretrain.pth`. This file is the weight of pretraining DSVT on Imagenet and Nuimage datasets.
+## Please download pretrained checkpoint from [unitr_pretrain.pth]([https://drive.google.com/u/0/uc?id=1SJQRI4TAKuO2GwqJ4otzMo7qGGjlBQ9u&export=download](https://drive.google.com/file/d/1Ly8Gf3DV5ATH8Xw1hRiDgUP9JbVpMPSE/view?usp=sharing)) and copy the file under the root folder, eg. `UniTR/unitr_pretrain.pth`. This file is the weight of pretraining DSVT on Imagenet and Nuimage datasets.
 
 3D object detection:
 
