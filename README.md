@@ -66,6 +66,10 @@ conda create -n pillarfusion python=3.8
 # Install torch, we only test it in pytorch 1.10
 pip install torch==1.10.1+cu113 torchvision==0.11.2+cu113 -f https://download.pytorch.org/whl/torch_stable.html
 
+or(if you are in CHINA，please install it by the following method)
+
+pip install torch==1.10.1+cu113 torchvision==0.11.2+cu113 -f https://mirrors.aliyun.com/pytorch-wheels/cu113
+
 git clone https://github.com/njuptlogic/Pillar_fusion.git
 cd pillarfusion
 
