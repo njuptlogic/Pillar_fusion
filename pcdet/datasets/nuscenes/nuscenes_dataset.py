@@ -254,6 +254,7 @@ class NuScenesDataset(DatasetTemplate):
         self._data_rng = np.random.RandomState(123)
         ##############################################
         self.infos = []
+        self.load_interval = self.dataset_cfg.get('INTERVAL',1)
         self.camera_config = self.dataset_cfg.get('CAMERA_CONFIG', None)
         if self.camera_config is not None:
             self.use_camera = self.camera_config.get('USE_CAMERA', True)
@@ -321,7 +322,11 @@ class NuScenesDataset(DatasetTemplate):
                 continue
             with open(info_path, 'rb') as f:
                 infos = pickle.load(f)
-                nuscenes_infos.extend(infos)
+                if mode == 'train':
+                    nuscenes_infos.extend(infos[::self.load_interval])
+                else:
+                    nuscenes_infos.extend(infos)
+                #nuscenes_infos.extend(infos)
 
         self.infos.extend(nuscenes_infos)
         self.logger.info('Total samples for NuScenes dataset: %d' % (len(nuscenes_infos)))
