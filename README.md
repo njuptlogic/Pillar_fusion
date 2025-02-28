@@ -81,6 +81,15 @@ pip install nuscenes-devkit==1.0.5
 
 # Develop
 python setup.py develop
+
+（File "/root/miniconda/envs/unitr/lib/python3.8/site-packages/kornia/geometry/conversions.py", line 556
+if you meet this problem,please try the method below
+# this slightly awkward construction of the output shape is to satisfy torchscript
+    #已修改output_shape = [*list(quaternion.shape[:-1]), 3, 3]
+    output_shape = (quaternion.size(0), 3, 3)  # Or use the known shape instead of inferring dynamically
+
+    matrix = matrix_flat.reshape(output_shape)
+    return matrix）
 ```
 ### 参考依赖库如下（conda list结果）
 You can check your env from [condalist.md](https://drive.google.com/file/d/1ZSDUnbZnMthaENyE6A-VCPRN2hEkx7Dh/view?usp=drive_link)
