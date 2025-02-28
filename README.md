@@ -81,7 +81,7 @@ pip install nuscenes-devkit==1.0.5
 # Develop
 python setup.py develop
 
-（File "/root/miniconda/envs/unitr/lib/python3.8/site-packages/kornia/geometry/conversions.py", line 556
+# (File "/root/miniconda/envs/unitr/lib/python3.8/site-packages/kornia/geometry/conversions.py",line 556)
 if you meet this problem,please try the method below
 # this slightly awkward construction of the output shape is to satisfy torchscript
     #已修改output_shape = [*list(quaternion.shape[:-1]), 3, 3]
