@@ -131,7 +131,7 @@ python -m pcdet.datasets.nuscenes.nuscenes_dataset --func create_nuscenes_infos 
 # share mem will greatly improve your training speed, but need 150G or 75G extra cache mem. 
 # NOTE: all the experiments used share memory. Share mem will not affect performance
 ```
-# if you met this problem,please turn to  envs/unitr/lib/python3.8/site-packages/av2/utils/typing.py,line 14
+### if you met this problem,please turn to  envs/unitr/lib/python3.8/site-packages/av2/utils/typing.py,line 14
 change from NDArrayNumber = np.ndarray[Any, np.dtype[Union[np.integer[Any], np.floating[Any]]]]
 to
 NDArrayNumber = npt.NDArray["np.number[Any]"]
@@ -154,7 +154,7 @@ Traceback (most recent call last):
 TypeError: Type subscription requires python >= 3.9
 '''
 '''
-when you meet this
+### when you meet this
 # (File "/root/miniconda/envs/unitr/lib/python3.8/site-packages/kornia/geometry/conversions.py",line 556)
 if you meet this problem,please try the method below
 at the 556 line
