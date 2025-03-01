@@ -90,7 +90,7 @@ at the 556 line
     matrix = matrix_flat.reshape(output_shape)
     return matrix
 ```
-### 参考依赖库如下（conda list结果）
+### The reference dependencies are as follows (conda list results)
 You can check your env from [condalist.md](https://drive.google.com/file/d/1ZSDUnbZnMthaENyE6A-VCPRN2hEkx7Dh/view?usp=drive_link)
 
 ### Dataset Preparation
