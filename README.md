@@ -79,16 +79,6 @@ pip install nuscenes-devkit==1.0.5
 
 # Develop
 python setup.py develop
-
-# (File "/root/miniconda/envs/unitr/lib/python3.8/site-packages/kornia/geometry/conversions.py",line 556)
-if you meet this problem,please try the method below
-at the 556 line
-# this slightly awkward construction of the output shape is to satisfy torchscript
-    #已修改output_shape = [*list(quaternion.shape[:-1]), 3, 3]
-    output_shape = (quaternion.size(0), 3, 3)  # Or use the known shape instead of inferring dynamically
-
-    matrix = matrix_flat.reshape(output_shape)
-    return matrix
 ```
 ### The reference dependencies are as follows (conda list results)
 You can check your env from [condalist.md](https://drive.google.com/file/d/1ZSDUnbZnMthaENyE6A-VCPRN2hEkx7Dh/view?usp=drive_link)
@@ -141,7 +131,40 @@ python -m pcdet.datasets.nuscenes.nuscenes_dataset --func create_nuscenes_infos 
 # share mem will greatly improve your training speed, but need 150G or 75G extra cache mem. 
 # NOTE: all the experiments used share memory. Share mem will not affect performance
 ```
+# if you met this problem,please turn to  envs/unitr/lib/python3.8/site-packages/av2/utils/typing.py,line 14
+change from NDArrayNumber = np.ndarray[Any, np.dtype[Union[np.integer[Any], np.floating[Any]]]]
+to
+NDArrayNumber = npt.NDArray["np.number[Any]"]
+'''
+Traceback (most recent call last):
+  File "/root/miniconda/envs/unitr/lib/python3.8/runpy.py", line 185, in _run_module_as_main
+    mod_name, mod_spec, code = _get_module_details(mod_name, _Error)
+  File "/root/miniconda/envs/unitr/lib/python3.8/runpy.py", line 111, in _get_module_details
+    __import__(pkg_name)
+  File "/root/lanyun-tmp/Pillar_fusion/pcdet/datasets/__init__.py", line 15, in <module>
+    from .argo2.argo2_dataset import Argo2Dataset
+  File "/root/lanyun-tmp/Pillar_fusion/pcdet/datasets/argo2/argo2_dataset.py", line 7, in <module>
+    from av2.utils.io import read_feather
+  File "/root/miniconda/envs/unitr/lib/python3.8/site-packages/av2/utils/io.py", line 16, in <module>
+    import av2.geometry.geometry as geometry_utils
+  File "/root/miniconda/envs/unitr/lib/python3.8/site-packages/av2/geometry/geometry.py", line 11, in <module>
+    from av2.utils.typing import NDArrayBool, NDArrayFloat, NDArrayInt
+  File "/root/miniconda/envs/unitr/lib/python3.8/site-packages/av2/utils/typing.py", line 14, in <module>
+    NDArrayNumber = np.ndarray[Any, np.dtype[Union[np.integer[Any], np.floating[Any]]]]
+TypeError: Type subscription requires python >= 3.9
+'''
+'''
+when you meet this
+# (File "/root/miniconda/envs/unitr/lib/python3.8/site-packages/kornia/geometry/conversions.py",line 556)
+if you meet this problem,please try the method below
+at the 556 line
+# this slightly awkward construction of the output shape is to satisfy torchscript
+    #已修改output_shape = [*list(quaternion.shape[:-1]), 3, 3]
+    output_shape = (quaternion.size(0), 3, 3)  # Or use the known shape instead of inferring dynamically
 
+    matrix = matrix_flat.reshape(output_shape)
+    return matrix
+'''
 * The format of the generated data is as follows:
 ```
 OpenPCDet
