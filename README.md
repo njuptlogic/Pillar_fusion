@@ -174,7 +174,7 @@ Please download pretrained checkpoint from [unitr_pretrain.pth](https://drive.go
 3D object detection:
 ```shell
 # train data path
-please turn to /Pillar_fusion/pcdet/datasets/nuscenes/nuscenes_dataset.py ,line 484,prefix = "/root/lanyun-tmp/Pillar_fusion/data/nuscenes/v1.0-trainval",change it to your real data path
+please turn to /Pillar_fusion/pcdet/datasets/nuscenes/nuscenes_dataset.py ,line 662,prefix = "/root/lanyun-tmp/Pillar_fusion/data/nuscenes/v1.0-trainval",change it to your real data path
 ```
 ```shell
 # multi-gpu training
