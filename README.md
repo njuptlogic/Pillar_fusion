@@ -131,11 +131,12 @@ python -m pcdet.datasets.nuscenes.nuscenes_dataset --func create_nuscenes_infos 
 # share mem will greatly improve your training speed, but need 150G or 75G extra cache mem. 
 # NOTE: all the experiments used share memory. Share mem will not affect performance
 ```
-### if you met this problem,please turn to  envs/unitr/lib/python3.8/site-packages/av2/utils/typing.py,line 14
+```shell
+if you met this problem,please turn to  envs/unitr/lib/python3.8/site-packages/av2/utils/typing.py,line 14
 change from NDArrayNumber = np.ndarray[Any, np.dtype[Union[np.integer[Any], np.floating[Any]]]]
 to
 NDArrayNumber = npt.NDArray["np.number[Any]"]
-'''
+
 Traceback (most recent call last):
   File "/root/miniconda/envs/unitr/lib/python3.8/runpy.py", line 185, in _run_module_as_main
     mod_name, mod_spec, code = _get_module_details(mod_name, _Error)
@@ -152,9 +153,8 @@ Traceback (most recent call last):
   File "/root/miniconda/envs/unitr/lib/python3.8/site-packages/av2/utils/typing.py", line 14, in <module>
     NDArrayNumber = np.ndarray[Any, np.dtype[Union[np.integer[Any], np.floating[Any]]]]
 TypeError: Type subscription requires python >= 3.9
-'''
-'''
-### when you meet this
+
+# when you meet this
 # (File "/root/miniconda/envs/unitr/lib/python3.8/site-packages/kornia/geometry/conversions.py",line 556)
 if you meet this problem,please try the method below
 at the 556 line
@@ -164,7 +164,8 @@ at the 556 line
 
     matrix = matrix_flat.reshape(output_shape)
     return matrix
-'''
+```
+
 * The format of the generated data is as follows:
 ```
 OpenPCDet
