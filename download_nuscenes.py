@@ -7,10 +7,10 @@ import gzip
 import json 
 
 # replace your email and password in https://www.nuscenes.org/
-useremail = "2782584672@qq.com"
-password = "@Qwe200407131619"
+useremail = "xxxxxxxxxxxxxxxxxxxxx"
+password = "xxxxxxxxxxxxxxxxxxxxxx"
 
-output_dir = "/root/mount_data/xjh/CenterFusion/data/nuscenes"
+output_dir = "data/nuscenes/v1.0-trainval" #your data folder
 region = 'asia' # 'us' or 'asia'
 
 
