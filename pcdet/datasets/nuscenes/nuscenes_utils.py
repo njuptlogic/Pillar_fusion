@@ -308,7 +308,7 @@ def fill_trainval_infos(data_path, nusc, train_scenes, val_scenes, test=False, m
                 all_points = RadarPointCloud(np.zeros((18, 0)))
                 for radar_channel in RADARS_FOR_CAMERA[cam]:
                     # Preload radar data (assuming from_file_multisweep can return the points directly)
-                    radar_pcs, _ = RadarPointCloud.from_file_multisweep(nusc, sample, radar_channel, cam, nsweeps=4)
+                    radar_pcs, _ = RadarPointCloud.from_file_multisweep(nusc, sample, radar_channel, cam, nsweeps=6)
                     all_points.points = np.hstack((all_points.points, radar_pcs.points))
                     #all_points.points = np.hstack((all_points.points, all_points.points))
                 # Store the radar point cloud data as a list for further use
