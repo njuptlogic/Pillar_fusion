@@ -191,9 +191,9 @@ OpenPCDet
 ```
 
 ### Training
-## tip:if you want to train the full dataset after you check the env, please go to the Pillar_fusion/tools/cfgs/nuscenes_models/unitr.yaml,line7
+## tip:if you want to train the less dataset , please go to the Pillar_fusion/tools/cfgs/nuscenes_models/unitr.yaml,line7
 ```shell
-# alter INTERVAL: x to INTERVAL: 1
+# alter INTERVAL: 1 to INTERVAL: x (if x is 5,you will get 1/5 dataset to train)
 ```
 Please download pretrained checkpoint from [unitr_pretrain.pth](https://drive.google.com/file/d/1Ly8Gf3DV5ATH8Xw1hRiDgUP9JbVpMPSE/view?usp=sharing) and copy the file under the root folder, eg. `UniTR/unitr_pretrain.pth`. This file is the weight of pretraining DSVT on Imagenet and Nuimage datasets.
 
