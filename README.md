@@ -153,7 +153,7 @@ TypeError: Type subscription requires python >= 3.9
 please turn to  envs/unitr/lib/python3.8/site-packages/av2/utils/typing.py,line 14
 change from NDArrayNumber = np.ndarray[Any, np.dtype[Union[np.integer[Any], np.floating[Any]]]]
 to
-NDArrayNumber = npt.NDArray["np.number[Any]"]
+NDArrayNumber = np.ndarray
 
 
 
