@@ -160,13 +160,8 @@ NDArrayNumber = np.ndarray
 # when you meet this
 # (File "/root/miniconda/envs/unitr/lib/python3.8/site-packages/kornia/geometry/conversions.py",line 556)
 if you meet this problem,please try the method below
-at the 556 line
-# this slightly awkward construction of the output shape is to satisfy torchscript
-    #已修改output_shape = [*list(quaternion.shape[:-1]), 3, 3]
-    output_shape = (quaternion.size(0), 3, 3)  # Or use the known shape instead of inferring dynamically
-
-    matrix = matrix_flat.reshape(output_shape)
-    return matrix
+pip uninstall kornia
+pip install kornia==0.6.5
 ```
 
 * The format of the generated data is as follows:
