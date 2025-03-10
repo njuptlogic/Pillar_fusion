@@ -31,12 +31,12 @@ def quat_to_mat(quat_wxyz: Tensor) -> Tensor:
     Returns:
         (...,3,3) 3D rotation matrices.
     """
-    '''
+    
     return C.quaternion_to_rotation_matrix(
         quat_wxyz, order=C.QuaternionCoeffOrder.WXYZ
     )
-   '''
-    return C.quaternion_to_rotation_matrix(quat_wxyz)
+   
+    #return C.quaternion_to_rotation_matrix(quat_wxyz)
 
 
 # @torch.jit.script
