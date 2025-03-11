@@ -57,6 +57,9 @@ We introduce a modality-agnostic transformer encoder to handle these view-discre
 A weight-shared unified multimodal encoder is a prerequisite for foundation models, especially in the context of 3D perception, unifying information from both images and LiDAR data. This is the first truly multimodal fusion backbone, seamlessly connecting to any 3D detection head.
 
 ## Quick Start
+we test env both with conda/miniconda/anaconda,and try differnt graphics card (3090 and 4090 are all FINE).
+we recommend you train this repo with at leasst 24g graphics memory and 60g general memory for each card
+
 ### Installation
 
 ```shell
@@ -194,6 +197,11 @@ OpenPCDet
 
 ### Training
 ## tip:if you want to train the less dataset , please go to the Pillar_fusion/tools/cfgs/nuscenes_models/unitr.yaml,line7
+
+## if you want to use mini nuscenes,turn to tools\cfgs\dataset_configs\nuscenes_dataset.yaml,line 4
+VERSION: 'v1.0-trainval' 
+change it to 
+VERSION: 'v1.0-mini' 
 ```shell
 # alter INTERVAL: 1 to INTERVAL: x (if x is 5,you will get 1/5 dataset to train)
 ```
