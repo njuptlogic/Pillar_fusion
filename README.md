@@ -2,7 +2,7 @@
 ## OpenPCDet-based 3D target detection for large-scale automated driving with tri-modal (radar,lidar,camera) fusion
 
 <div align="center">
-  <img src="illustrations/1.png" width="700"/>
+  <img src="illustrations/论文框架图.png" width="700"/>
 </div>
 
 
