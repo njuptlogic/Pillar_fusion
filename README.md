@@ -48,7 +48,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 ##### BEV Map Segmentation
 <div align="center">
-  <img src="illustrations/5.png" width="700"/>
+  <img src="illustrations/9.png" width="700"/>
 </div>
 
 #### 🔥 Weight-Sharing among all modalities 
