@@ -26,7 +26,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ## Main results
 ### 3D Object Detection (on NuScenes validation)
 |  Model  | NDS | mAP |mATE | mASE | mAOE | mAVE| mAAE | Log |
-|---------|---------|--------|---------|---------|--------|---------|--------|--------|--------|
+|---------|---------|--------|---------|---------|--------|---------|--------|--------|
 |  [UniTR](https://github.com/Haiyang-W/UniTR/blob/main/tools/cfgs/nuscenes_models/unitr.yaml) | 30.5 | 24.6 | 39.6 | 51.3 | 105.7 | 75.3 | 39.6 | [Log](https://drive.google.com/file/d/10n-eb7vJpXKilV48yHAsywfVaG0Vxg7_/view?usp=drive_link)|
 |  [UniTR+LSS](https://github.com/Haiyang-W/UniTR/blob/main/tools/cfgs/nuscenes_models/unitr%2Blss.yaml) | 73.3 | 70.5 | 26.0 | 24.4 | 26.8 | 24.8 | 18.7 | [ckpt](https://drive.google.com/file/d/1D-_RRN2P9MnI2u8DWRNt7I2-58gohRQ_/view?usp=sharing)| [Log](https://drive.google.com/file/d/1mWDXF22YmeQnHvrmLTehRJGrXySvl0NK/view?usp=sharing)|
 
