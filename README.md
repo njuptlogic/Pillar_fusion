@@ -42,12 +42,12 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 #### 🔥 Beats previous SOTAs of outdoor multi-modal 3D Object Detection and BEV Segmentation
 
 ##### Recommended configuration table
-<div align="left">
+<div align="center">
   <img src="illustrations/8.png" width="700"/>
 </div>
 
 ##### BEV Map Segmentation
-<div align="left">
+<div align="center">
   <img src="illustrations/5.png" width="700"/>
 </div>
 
