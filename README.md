@@ -20,7 +20,7 @@
 In this paper, we xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 <div align="center">
-  <img src="illustrations/3.png" width="800"/>
+  <img src="illustrations/pipeline.png" width="800"/>
 </div>
 
 ## Main results on NUSCENES V1.0-mini
