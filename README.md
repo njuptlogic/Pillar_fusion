@@ -212,6 +212,17 @@ bash scripts/dist_train.sh 8 --cfg_file ./cfgs/nuscenes_models/unitr.yaml --sync
 ## add lss
 cd tools
 bash scripts/dist_train.sh 8 --cfg_file ./cfgs/nuscenes_models/unitr+lss.yaml --sync_bn --pretrained_model ../unitr_pretrain.pth --logger_iter_interval 1000
+
+if you met this problem
+
+bash scripts/dist_train.sh 4 --cfg_file ./cfgs/nuscenes_models/unitr.yaml --sync_bn --pretrained_model ../unitr
+_pretrain.pth --logger_iter_interval 1000 
+: invalid optionin.sh: line 2: set: -
+set: usage: set [-abefhkmnptuvxBCHP] [-o option-name] [--] [arg ...]
+scripts/dist_train.sh: line 16: syntax error: unexpected end of file
+
+please try the method before
+
 ```
 
 BEV Map Segmentation:
