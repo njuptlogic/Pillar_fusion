@@ -202,10 +202,7 @@ VERSION: 'v1.0-mini'
 Please download pretrained checkpoint from [unitr_pretrain.pth](https://drive.google.com/file/d/1Ly8Gf3DV5ATH8Xw1hRiDgUP9JbVpMPSE/view?usp=sharing) and copy the file under the root folder, eg. `UniTR/unitr_pretrain.pth`. This file is the weight of pretraining DSVT on Imagenet and Nuimage datasets.
 
 3D object detection:
-```shell
-# train data path
-please turn to /Pillar_fusion/pcdet/datasets/nuscenes/nuscenes_dataset.py ,line 484,prefix = "/root/lanyun-tmp/Pillar_fusion/data/nuscenes/v1.0-trainval",change it to your real data path
-```
+
 ```shell
 # multi-gpu training
 ## normal
