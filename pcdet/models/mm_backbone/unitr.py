@@ -210,36 +210,35 @@ class UniTR(nn.Module):
     def _input_preprocess(self, batch_dict):
         # image branch
         imgs = batch_dict['camera_imgs']
-        #print("imgs.shape",imgs.shape)
+        
         B, N, C, H, W = imgs.shape  # 6, 6, 3, 256, 704
         imgs = imgs.view(B * N, C, H, W)
 
         imgs, hw_shape = self.patch_embed(imgs)  # 8x [36, 2816, C] [32, 88]
         camera_feat = imgs
         batch_dict['hw_shape'] = hw_shape
-        #########################################################################
+        
         def get_conv1x1(in_channels):
             return nn.Conv1d(in_channels=in_channels, out_channels=int(in_channels/2), kernel_size=1)
         
         #radar_pc branch
         pc_feat=batch_dict['pc_hm']
-        #print(pc_feat.shape)
+        
         B, N, C, H, W = pc_feat.shape  # 3, 6, 3, 256, 704
         pc_feat = pc_feat.view(B * N, C, H, W)
 
         pc_feat, pchm_shape = self.patch_embed(pc_feat)  # 8x [18, 2816, C] [32, 88]
-        # 假设合并后的输入张量
-        x = pc_feat  # 36通道 2816分辨率 128特征
+        # radar_pc的输入张量
+        x = pc_feat  # 18通道 2816分辨率 128特征
         # 转置张量
-        x = x.permute(2, 0, 1)  # 变为 [128, 36, 2816]
+        x = x.permute(2, 0, 1)  # 变为 [128, 18, 2816]
+        # 转置camera张量
         camera_feat = camera_feat.permute(2,0,1)
-        # 定义 conv1x1 层，将通道数从 36 降到 18
-        #conv1x1 = nn.Conv1d(in_channels=36, out_channels=18, kernel_size=1)
-        # 应用 conv1x1 卷积
-        #print("x.shhape",x.shape)
+        #对channel维度拼接张量
         x = torch.cat([x, camera_feat], dim=1)
-        #print("x.shape",x.shape)
         x = x.cuda()
+        # 定义 conv1x1 层，将通道数从 36 降到 18
+        # 应用 conv1x1 卷积
         conv1x1 = get_conv1x1(x.size(1))  # 使用输入张量的通道数来设置 conv1x1 层
         conv1x1 = conv1x1.to(x.device) 
         output = conv1x1(x)
@@ -249,11 +248,7 @@ class UniTR(nn.Module):
         output = output.permute(1, 2, 0)
         radar_camera_feat = output
         #print(output.shape)  # 最终形状为 [18, 2816, 128]
-        #print("radar_camera_feat",radar_camera_feat.shape)
-        #batch_dict['radar_camera_features'] = radar_camera_feat.view(-1, pc_feat.shape[-1])
-        #print("batch_dict['radar_camera_features']",batch_dict['radar_camera_features'].shape)
         
-        #########################################################################
         # 36*2816, C
         #batch_dict['patch_features'] = imgs.view(-1, imgs.shape[-1])
         batch_dict['patch_features'] = radar_camera_feat.view(-1, pc_feat.shape[-1])
@@ -283,38 +278,7 @@ class UniTR(nn.Module):
                                  for i in range(self.num_shifts[s])] for s in range(len(self.set_info))]
         pos_embed_list = [[[voxel_info[f'pos_embed_stage{s}_block{b}_shift{i}']
                             for i in range(self.num_shifts[s])] for b in range(self.lidar_pos_num)] for s in range(len(self.set_info))]
-        '''
-        #radar_pc branch
-        pc_feat=batch_dict['pc_hm']
-        #print(pc_feat.shape)
-        B, N, C, H, W = pc_feat.shape  # 3, 6, 3, 256, 704
-        pc_feat = pc_feat.view(B * N, C, H, W)
-
-        pc_feat, pchm_shape = self.patch_embed(pc_feat)  # 8x [18, 2816, C] [32, 88]
-        # 假设合并后的输入张量
-        x = pc_feat  # 36通道 2816分辨率 128特征
-        # 转置张量
-        x = x.permute(2, 0, 1)  # 变为 [128, 36, 2816]
-        camera_feat = camera_feat.permute(2,0,1)
-        # 定义 conv1x1 层，将通道数从 36 降到 18
-        conv1x1 = nn.Conv1d(in_channels=36, out_channels=18, kernel_size=1)
-        # 应用 conv1x1 卷积
-        x = torch.cat([x, camera_feat], dim=1)
-        #print("x.shape",x.shape)
-        x = x.cuda()
-        #conv1x1 = conv1x1.to(x.device) 
-        conv1x1 = get_conv1x1(x.size(0))
-        output = conv1x1(x)
-        # 输出的形状应该是 [128, 18, 2816]
-        #print(output.shape)
-        # 转置回来
-        output = output.permute(1, 2, 0)
-        radar_camera_feat = output
-        #print(output.shape)  # 最终形状为 [18, 2816, 128]
-        print("radar_camera_feat",radar_camera_feat.shape)
-        batch_dict['radar_camera_features'] = radar_camera_feat.view(-1, pc_feat.shape[-1])
-        print("batch_dict['radar_camera_features']",batch_dict['radar_camera_features'].shape)
-        '''
+       
 
         # multi-modality parallel
         voxel_num = voxel_feat.shape[0]
