@@ -20,6 +20,10 @@
     <img src="illustrations/1197_0.png" width="400"/>
     <img src="illustrations/1197_1.png" width="400"/>
 </div>
+<div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
+    <img src="illustrations/1244_1.png" width="400"/>
+    <img src="illustrations/1244_2.png" width="400"/>
+</div>
 
 In this paper, we xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
