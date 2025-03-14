@@ -12,10 +12,8 @@
 
 
 ## Introduction
-<div style="display: flex; justify-content: space-between;">
-    <img src="illustrations/9_0.png" width="500"/>
-    <img src="illustrations/9_1.png" width="500"/>
-</div>
+![Image 1](illustrations/9_0.png){:style="display:inline-block; width: 500px;"} 
+![Image 2](illustrations/9_1.png){:style="display:inline-block; width: 500px;"}
 
 
 In this paper, we xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
