@@ -14,7 +14,8 @@
 ## Introduction
 
 <div align="left">
-  <img src="illustrations/9_0.png" width="500"/>
+  <img src="illustrations/9_0.png" width="500"/><img src="illustrations/9_1.png" width="500"/>
+</div>
 </div>
 <div align="right">
   <img src="illustrations/9_1.png" width="500"/>
