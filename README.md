@@ -12,7 +12,7 @@
 
 
 ## Introduction
-<div style="display: flex; justify-content: space-between;">
+<div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
     <img src="illustrations/9_0.png" width="400"/>
     <img src="illustrations/9_1.png" width="400"/>
 </div>
