@@ -73,10 +73,8 @@ def get_dist_thresh(calib, ct, dim, alpha):
 
 class NuScenesDataset(DatasetTemplate):
     ########################################
-    num_categories = 10
-    class_name = ['car', 'truck', 'bus', 'trailer', 'construction_vehicle', 'pedestrian', 'motorcycle', 'bicycle','traffic_cone', 'barrier']
+
     #cat_ids = {i + 1: i + 1 for i in range(num_categories)}
-    ##############################################
     rest_focal_length = 1200
     num_joints = 17
     flip_idx = [[1, 2], [3, 4], [5, 6], [7, 8], [9, 10], [11, 12], [13, 14], [15, 16]]
