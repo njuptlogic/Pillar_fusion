@@ -772,7 +772,6 @@ class NuScenesDataset(DatasetTemplate):
         
         #print("data_dict['pc_hm']",len(data_dict['pc_hm']))
         '''
-        #img, anns, img_info, img_path = self._load_data(index)
         img, img_path = self._load_data(index,input_dict)
         height, width = img.shape[0], img.shape[1]
 
