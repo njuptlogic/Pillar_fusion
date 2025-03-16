@@ -461,14 +461,6 @@ class NuScenesDataset(DatasetTemplate):
         return out, mask
 
 
-    def _load_image_anns(self, img_id, coco, img_dir):
-        img_info = coco.loadImgs(ids=[img_id])[0]
-        file_name = img_info['file_name']
-        img_path = os.path.join(img_dir, file_name)
-        ann_ids = coco.getAnnIds(imgIds=[img_id])
-        anns = copy.deepcopy(coco.loadAnns(ids=ann_ids))
-        img = cv2.imread(img_path)
-        return img, anns, img_info, img_path
 
     def _flip_pc(self, pc_2d, width):
         pc_2d[0,:] = width - 1 - pc_2d[0,:]
@@ -478,7 +470,6 @@ class NuScenesDataset(DatasetTemplate):
         #coco = self.coco
         #img_dir = self.img_dir
         #img_id = self.images[index]
-        #img, anns, img_info, img_path = self._load_image_anns(img_id, coco, img_dir)
         #img = info['radar_path'][]
         #prefix = "/root/lanyun-tmp/Pillar_fusion/data/nuscenes/v1.0-trainval"
         prefix = "/root/lanyun-tmp/Pillar_fusion/data/nuscenes/v1.0-mini"
