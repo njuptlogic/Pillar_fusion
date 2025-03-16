@@ -130,8 +130,8 @@ class DynamicPillarVFE(VFETemplate):
         
         # generate voxel coordinates
         unq_coords = unq_coords.int()
-        voxel_coords = torch.stack((torch.div(unq_coords, self.scale_xy, rounding_mode='floor'),
-                                    torch.div(unq_coords % self.scale_xy, self.scale_y, rounding_mode='floor'),
+        voxel_coords = torch.stack((torch.div(unq_coords, self.scale_xy, rounding_mode='trunc'),
+                                    torch.div(unq_coords % self.scale_xy, self.scale_y, rounding_mode='trunc'),
                                    unq_coords % self.scale_y,
                                    torch.zeros(unq_coords.shape[0]).to(unq_coords.device).int()
                                    ), dim=1)
