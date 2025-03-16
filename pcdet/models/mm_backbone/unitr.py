@@ -316,7 +316,7 @@ class UniTR(nn.Module):
             batch_dict)
         image2lidar_coords_bzyx = torch.cat(
             [batch_dict['patch_coords'][:, :1].clone(), image2lidar_coords_zyx], dim=1)
-        image2lidar_coords_bzyx[:, 0] = torch.div(image2lidar_coords_bzyx[:, 0], N,rounding_mode='floor' )
+        image2lidar_coords_bzyx[:, 0] = torch.div(image2lidar_coords_bzyx[:, 0], N,rounding_mode='trunc' )
         #image2lidar_coords_bzyx[:, 0] // N
         image2lidar_batch_dict = {}
         image2lidar_batch_dict['voxel_features'] = multi_feat.clone()
@@ -347,7 +347,7 @@ class UniTR(nn.Module):
             [batch_dict['voxel_coords'][:, :1].clone(), lidar2image_coords_zyx], dim=1)
         multiview_coords = batch_dict['patch_coords'].clone()
         # multiview_coords[:, 0] = batch_dict['patch_coords'][:, 0] // N
-        multiview_coords[:, 0] = torch.div(batch_dict['patch_coords'][:, 0],N, rounding_mode='floor')
+        multiview_coords[:, 0] = torch.div(batch_dict['patch_coords'][:, 0],N, rounding_mode='trunc')
         multiview_coords[:, 1] = batch_dict['patch_coords'][:, 0] % N
         multiview_coords[:, 2] += hw_shape[1]
         multiview_coords[:, 3] += hw_shape[0]
