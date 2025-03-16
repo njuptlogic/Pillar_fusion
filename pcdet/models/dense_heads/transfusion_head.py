@@ -201,7 +201,7 @@ class TransFusionHead(nn.Module):
             ..., : self.num_proposals
         ]
         #top_proposals_class = top_proposals // heatmap.shape[-1]
-        top_proposals_class = torch.div(top_proposals,heatmap.shape[-1], rounding_mode='floor')
+        top_proposals_class = torch.div(top_proposals,heatmap.shape[-1], rounding_mode='trunc')
         top_proposals_index = top_proposals % heatmap.shape[-1]
         query_feat = lidar_feat_flatten.gather(
             index=top_proposals_index[:, None, :].expand(-1, lidar_feat_flatten.shape[1], -1),
@@ -226,7 +226,7 @@ class TransFusionHead(nn.Module):
         if self.query_local:
             # compute local key 
             #top_proposals_x = top_proposals_index // x_grid # bs, num_proposals
-            top_proposals_x = torch.div(top_proposals_index, x_grid, rounding_mode='floor')
+            top_proposals_x = torch.div(top_proposals_index, x_grid, rounding_mode='trunc')
             top_proposals_y = top_proposals_index % y_grid # bs, num_proposals
             
             # bs, num_proposal, radius * 2 + 1, radius * 2 + 1
