@@ -36,7 +36,7 @@ xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 |  Model  | NDS | mAP |mATE | mASE | mAOE | mAVE| mAAE | Log |
 |---------|---------|--------|---------|---------|--------|---------|--------|--------|
 |  [Pillar_fusion](https://github.com/njuptlogic/Pillar_fusion/blob/main/tools/cfgs/nuscenes_models/unitr.yaml) | 30.5 | 24.6 | 39.6 | 51.3 | 105.7 | 75.3 | 39.6 | [Log](https://drive.google.com/file/d/10n-eb7vJpXKilV48yHAsywfVaG0Vxg7_/view?usp=drive_link)|
-|  [UniTR](https://github.com/Haiyang-W/UniTR/blob/main/tools/cfgs/nuscenes_models/unitr%2Blss.yaml) | 25.8 | 24.1 | 54.1 | 53.4 | 113.4 | 112.1 | 54.7 | [Log](https://drive.google.com/file/d/10n-eb7vJpXKilV48yHAsywfVaG0Vxg7_/view?usp=drive_link)|
+|  [UniTR](https://github.com/Haiyang-W/UniTR/blob/main/tools/cfgs/nuscenes_models/unitr%2Blss.yaml) | 25.8 | 24.1 | 54.1 | 53.4 | 113.4 | 112.1 | 54.7 | [Log](https://drive.google.com/file/d/14i9GJl9trpdIwVS9IMi61fBbWgpKptWU/view?usp=sharing_link)|
 
 
 
