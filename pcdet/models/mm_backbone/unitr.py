@@ -27,7 +27,7 @@ class UniTR(nn.Module):
         accelerate (bool): whether accelerate forward by caching image pos embed, image2lidar coords and lidar2image coords.
     '''
 
-    def __init__(self, model_cfg, use_map=False, **kwargs):
+        def __init__(self, model_cfg, use_map=False, **kwargs):
         super().__init__()
         self.model_cfg = model_cfg
         self.set_info = set_info = self.model_cfg.set_info
@@ -87,9 +87,7 @@ class UniTR(nn.Module):
             block_list, norm_list = [], []
             for i in range(num_blocks_this_stage):
                 block_list.append(
-                    UniTRBlock(dmodel_this_stage, num_head_this_stage, dfeed_this_stage,
-                               dropout, activation, batch_first=True, block_id=block_id,
-                               dout=dmodel_this_stage, layer_cfg=layer_cfg)
+                    UniTRBlock(block_id, dmodel_this_stage, num_head_this_stage, dfeed_this_stage,dropout, activation, batch_first=True, dout=dmodel_this_stage, layer_cfg=layer_cfg)
                 )
                 norm_list.append(nn.LayerNorm(dmodel_this_stage))
                 block_id += 1
@@ -137,7 +135,7 @@ class UniTR(nn.Module):
                 self.lidar2image_pos_num = lidar2image_cfg.lidar2image_layer.set_info[0][1]
 
         self._reset_parameters()
-
+            
     def forward(self, batch_dict):
         '''
         Args:
@@ -385,13 +383,13 @@ class UniTRBlock(nn.Module):
     ''' Consist of two encoder layer, shift and shift back.
     '''
 
-    def __init__(self, d_model, nhead, dim_feedforward=2048, dropout=0.1,
-                 activation="relu", batch_first=True, block_id=-100, dout=None, layer_cfg=dict()):
+    def __init__(self, block_id, d_model, nhead, dim_feedforward=2048, dropout=0.1,
+                 activation="relu", batch_first=True, dout=None, layer_cfg=dict()):
         super().__init__()
 
-        encoder_1 = UniTR_EncoderLayer(d_model, nhead, dim_feedforward, dropout,
+        encoder_1 = UniTR_EncoderLayer(block_id, d_model, nhead, dim_feedforward, dropout,
                                        activation, batch_first, layer_cfg=layer_cfg)
-        encoder_2 = UniTR_EncoderLayer(d_model, nhead, dim_feedforward, dropout,
+        encoder_2 = UniTR_EncoderLayer(block_id, d_model, nhead, dim_feedforward, dropout,
                                        activation, batch_first, dout=dout, layer_cfg=layer_cfg)
         self.encoder_list = nn.ModuleList([encoder_1, encoder_2])
 
@@ -426,11 +424,10 @@ class UniTRBlock(nn.Module):
 
 class UniTR_EncoderLayer(nn.Module):
 
-    def __init__(self, d_model, nhead, dim_feedforward=2048, dropout=0.1,
+    def __init__(self, block_id, d_model, nhead, dim_feedforward=2048, dropout=0.1,
                  activation="relu", batch_first=True, mlp_dropout=0, dout=None, layer_cfg=dict()):
         super().__init__()
-        self.win_attn = SetAttention(
-            d_model, nhead, dropout, dim_feedforward, activation, batch_first, mlp_dropout, layer_cfg)
+        self.win_attn = SetAttention(block_id, d_model, nhead, dropout, dim_feedforward, activation, batch_first, mlp_dropout, layer_cfg)
         if dout is None:
             dout = d_model
         self.norm = nn.LayerNorm(dout)
@@ -446,15 +443,16 @@ class UniTR_EncoderLayer(nn.Module):
         return src
 class SetAttention(nn.Module):
 
-    def __init__(self, d_model, nhead, dropout, dim_feedforward=2048, activation="relu", batch_first=True, mlp_dropout=0, layer_cfg=dict()):
+    def __init__(self, block_id, d_model, nhead, dropout, dim_feedforward=2048, activation="relu", batch_first=True, mlp_dropout=0, layer_cfg=dict()):
         super().__init__()
         self.nhead = nhead
         if batch_first:
-            self.self_attn = nn.MultiheadAttention(
-                d_model, nhead, dropout=dropout, batch_first=batch_first)
+            #self.self_attn = nn.MultiheadAttention(d_model, nhead, dropout=dropout, batch_first=batch_first)
+            self.self_attn = MultiheadDiffAttn(embed_dim=d_model, depth=block_id, num_heads=nhead, num_kv_heads=None)
+            #self.self_attn = MultiheadAttention(embed_dim=d_model, depth=block_id, num_heads=nhead, num_kv_heads=None)
         else:
-            self.self_attn = nn.MultiheadAttention(
-                d_model, nhead, dropout=dropout)
+            self.self_attn = nn.MultiheadAttention(d_model, nhead, dropout=dropout)
+            #self.self_attn = MultiheadDiffAttn(embed_dim=d_model, depth=block_id, num_heads=nhead, num_kv_heads=None)
 
         # Implementation of Feedforward model
         self.linear1 = nn.Linear(d_model, dim_feedforward)
@@ -490,6 +488,39 @@ class SetAttention(nn.Module):
 
     def forward(self, src, pos=None, key_padding_mask=None, voxel_inds=None, voxel_num=0):
         set_features = src[voxel_inds]  # [win_num, 36, d_model]
+        
+        def get_rotary_embedding(pos: torch.Tensor, dim: int):
+            """
+            生成 rotary embedding 所需的 (cos, sin)，适用于 MultiheadDiffAttn
+            参数：
+                pos: Tensor of shape (N, 2) 表示二维空间坐标 x, y 
+                dim: int head_dim 必须是偶数 表示每个 attention head 的维度
+
+            返回：
+                cos: Tensor of shape (N, dim)
+                sin: Tensor of shape (N, dim)
+            """
+            assert pos.size(1) == 2, "Expected 2D position (x, y)"
+            assert dim % 2 == 0, "head_dim must be even"
+
+            # 基于标准 rotary embedding 的频率定义
+            inv_freq = 1.0 / (10000 ** (torch.arange(0, dim // 2).float() / (dim // 2))).to(pos.device)
+
+            # 拆出 x/y 坐标
+            x_embed = pos[:, 0]  # (N,)
+            y_embed = pos[:, 1]  # (N,)
+
+            # 分别计算 x 和 y 的频率映射
+            sin_inp_x = torch.einsum("i,j->ij", x_embed, inv_freq)  # (N, dim//2)
+            sin_inp_y = torch.einsum("i,j->ij", y_embed, inv_freq)  # (N, dim//2)
+
+            # 拼接（可以理解为 xy 分别映射到两个子空间）
+            sin_inp = torch.cat([sin_inp_x, sin_inp_y], dim=-1)  # (N, dim)
+            cos = torch.cos(sin_inp)
+            sin = torch.sin(sin_inp)
+            return cos, sin
+        cos, sin = get_rotary_embedding(pos[:, :2], dim=4)  # 例如只取 x/y 坐标
+        
         if pos is not None:
             set_pos = pos[voxel_inds]
         else:
@@ -498,10 +529,26 @@ class SetAttention(nn.Module):
             query = set_features + set_pos
             key = set_features + set_pos
             value = set_features
+        #print("key_padding_mask",key_padding_mask.shape)
+        tgt_len, bsz, embed_dim = query.size()
+        #print("query.shape",query.shape)
+        #print("key_padding_mask",key_padding_mask.shape)
         if key_padding_mask is not None:
-            src2 = self.self_attn(query, key, value, key_padding_mask)[0]
+            #src2 = self.self_attn(query, key, value, key_padding_mask)[0]
+            '''
+            attn_mask = key_padding_mask.view(tgt_len, bsz, 1).expand(-1, -1, tgt_len)
+            attn_mask = attn_mask.reshape(tgt_len, tgt_len)
+            '''
+            #src2 = self.self_attn(query, key, value,(cos,sin),attn_mask=None)
+            src2 = self.self_attn(query,key,value,(cos,sin),attn_mask=key_padding_mask)
+            #src2 = self.self_attn(query,key,value,(cos,sin),attn_mask=None)
+            
+            #src2 = self.self_attn(query, key, value)[0]
+            #print("src2.shape",src2.shape)
         else:
-            src2 = self.self_attn(query, key, value)[0]
+            #src2 = self.self_attn(query, key, value)[0]
+            src2 = self.self_attn(query,key,value,(cos,sin),attn_mask=None)
+        
 
         flatten_inds = voxel_inds.reshape(-1)
         unique_flatten_inds, inverse = torch.unique(
