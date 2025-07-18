@@ -27,7 +27,7 @@ class UniTR(nn.Module):
         accelerate (bool): whether accelerate forward by caching image pos embed, image2lidar coords and lidar2image coords.
     '''
 
-        def __init__(self, model_cfg, use_map=False, **kwargs):
+    def __init__(self, model_cfg, use_map=False, **kwargs):
         super().__init__()
         self.model_cfg = model_cfg
         self.set_info = set_info = self.model_cfg.set_info
