@@ -447,8 +447,8 @@ class SetAttention(nn.Module):
         super().__init__()
         self.nhead = nhead
         if batch_first:
-            #self.self_attn = nn.MultiheadAttention(d_model, nhead, dropout=dropout, batch_first=batch_first)
-            self.self_attn = MultiheadDiffAttn(embed_dim=d_model, depth=block_id, num_heads=nhead, num_kv_heads=None)
+            self.self_attn = nn.MultiheadAttention(d_model, nhead, dropout=dropout, batch_first=batch_first)
+            #self.self_attn = MultiheadDiffAttn(embed_dim=d_model, depth=block_id, num_heads=nhead, num_kv_heads=None)
             #self.self_attn = MultiheadAttention(embed_dim=d_model, depth=block_id, num_heads=nhead, num_kv_heads=None)
         else:
             self.self_attn = nn.MultiheadAttention(d_model, nhead, dropout=dropout)
